@@ -2,7 +2,7 @@
 	
 	/**
 	 * Plugin Name: WooCommerce Attribute Variation Export
-	 * Description: A tool to export attributes for variations
+	 * Description: Extends Woocommerce and allows the exportation of attributes from Variable Products
 	 * Version: 1.0.0
 	 * Author: Creative Little Dots
 	 * Author URI: http://creativelittledots.co.uk
