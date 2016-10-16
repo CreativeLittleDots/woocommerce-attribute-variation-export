@@ -8,9 +8,11 @@ However there is one thing missing, before you can even think about importing va
 
 This is where WooCommerce Attribute Variation Export comes in, you can freely build your attributes and then export the possible combinations of your choice.
 
-## Screenshot
+## How it works
 
 ![Checkboxes & Button](screenshots/example.png?raw=true "Checkboxes & Button")
+
+By checking the checkbox 'Used for attribute export' for an attribute, upon click the button 'Export attribute variations' a CSV will be downloaded to your browser which contains all the possible combinations from attributes you have marked for use with attribute export.
 
 ## Installation
 
