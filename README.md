@@ -6,11 +6,11 @@ When it comes to importing and exporting anything to do with Products, WooCommer
 
 However there is one thing missing, before you can even think about importing variations using Product CSV Import Suite, you need to create a CSV with all of the desired combinations of attributes that define your variations.
 
-This is WooCommerce Attribute Variation Export, you can freely build your attributes and then export the possible combinations of your choice.
+This is where WooCommerce Attribute Variation Export comes in, you can freely build your attributes and then export the possible combinations of your choice.
 
 ## Screenshot
 
-![Checkboxes & Button](/screenshots/example.png?raw=true "Checkboxes & Button")
+![Checkboxes & Button](screenshots/example.png?raw=true "Checkboxes & Button")
 
 ## Installation
 
