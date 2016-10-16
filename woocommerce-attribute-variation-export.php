@@ -27,7 +27,7 @@
 			
 			add_action( 'woocommerce_product_options_attributes', array($this, 'add_export_attribute_variations_button') );
 			add_action( 'admin_post_export_attribute_variations', array($this, 'export_attribute_variations') );
-			add_action( 'woocommerce_product_option_terms', array($this, 'add_used_for_export_checkbox'), 10, 2 );
+			add_action( 'woocommerce_after_product_attribute_settings', array($this, 'add_used_for_export_checkbox'), 10, 2 );
 			
 			add_action( 'wp_ajax_woocommerce_save_attributes', array($this, 'save_attributes'), 9 );
 			add_action( 'wp_ajax_nopriv_woocommerce_save_attributes', array($this, 'save_attributes'), 9 );
@@ -81,7 +81,13 @@
 						
 						if( $attribute['is_for_attribute_variation_export'] ) {
 							
-							$max_rows[$attribute['name']] = $attribute['is_taxonomy'] ? count(wc_get_product_terms( $product->id,  $attribute['name'], array( 'fields' => 'all' ))) : count($attribute['values']);
+							$max_rows[$attribute['name']] = $attribute['is_taxonomy'] ? count( wc_get_product_terms( $product->id,  $attribute['name'], array( 'fields' => 'all' ) ) ) : count( explode('|', $attribute['value'] ) );
+							
+							if( $max_rows[$attribute['name']] == 0 ) {
+								
+								unset($max_rows[$attribute['name']]);
+								
+							}
 						
 							$attribute_indexes[$attribute['name']] = 0;
 							
@@ -115,7 +121,7 @@
 						
 						foreach($attributes as $attribute) {
 							
-							$values = $attribute['values'];
+							$values = explode('|', $attribute['value']);
 							
 							if($attribute['is_taxonomy']) {
 							
@@ -199,22 +205,22 @@
 			ob_flush();
 		}
 		
-		public function add_used_for_export_checkbox( $attribute_taxonomy, $i ) {
-			
-			global $thepostid;
-			
-			$attributes = maybe_unserialize( get_post_meta( $thepostid, '_product_attributes', true ) );
-			
-			if($attributes) {
-				$attribute_keys = array_keys( $attributes );
-				$attribute = $attributes[ $attribute_keys[ $i ] ];
-			}
+		public function add_used_for_export_checkbox( $attribute, $i ) {
 
 			?>
 			
-			<hr />
+			<tr>
+				<td>
+					
+					<div class="enable_attribute_export">
 			
-			<label><input type="checkbox" class="checkbox attribute_variation_export" <?php checked( $attribute['is_for_attribute_variation_export'], 1 ); ?> name="attribute_variation_export[<?php echo $i; ?>]" value="1" /> <?php _e( 'Used for attribute variation export', 'woocommerce' ); ?></label>
+						<input type="checkbox" class="checkbox attribute_variation_export" <?php checked( ! empty( $attribute['is_for_attribute_variation_export'] ), 1 ); ?> name="attribute_variation_export[<?php echo $i; ?>]" value="1" /> <?php _e( 'Used for attribute export', 'woocommerce' ); ?>
+						
+					</div>
+					
+				</td>
+				
+			</tr>
 			
 			<?php
 			
